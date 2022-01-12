@@ -1,5 +1,3 @@
-
-
 #include "get_next_line.h"
 
 static int	append_new_line(char **tmp, char (*buf)[BUFF_SIZE + 1], char **line)

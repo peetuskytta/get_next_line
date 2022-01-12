@@ -18,4 +18,10 @@
 
 int	get_next_line(const int fd, char **line)
 {
+	char		*temp;
+	static char	buffer;
+
+	if (fd < 0 || !line || BUFF_SIZE <= 0)
+		return (-1);
+	
 }
