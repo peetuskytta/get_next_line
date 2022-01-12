@@ -15,10 +15,13 @@
 # define FD_SIZE 8192
 # define BUFF_SIZE 8
 
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <unistd.h>
+# include "libft/libft.h"
 
 int	get_next_line(const int fd, char **line);
 
