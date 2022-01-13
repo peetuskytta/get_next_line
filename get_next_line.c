@@ -47,7 +47,6 @@ static int	check_ret_value(int fd, char **line, int ret, char **str)
 	else if (ret == 0 && str[fd] == NULL)
 	{
 		return (0);
-		printf("EOF reached\n");
 	}
 	else
 		return (join_line(line, &str[fd]));
