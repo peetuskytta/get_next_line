@@ -24,7 +24,7 @@ int main(int ac, char **av)
       ret = get_next_line(fd, &line);
       if (ret == 0)
       {
-        printf("ret value: \033[0;32m%d\033[0m\t", ret);
+        printf("\nret value: \033[0;32m%d\033[0m\t", ret);
         printf("Status:\033[0;32m\tEOF reached\033[0m\n");
         printf("\033[0;34m------------------------------------\033[0m\n\n");
         break ;
@@ -38,7 +38,6 @@ int main(int ac, char **av)
       else
       {
         printf("line %d:\t\033[0;33m%s\033[0m", line_count, line);
-        printf("\n\033[0;34m------------------------------------\033[0m\n");
         ++line_count;
       }
     }

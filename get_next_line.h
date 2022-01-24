@@ -13,10 +13,9 @@
 #ifndef GET_NEXT_LINE
 # define GET_NEXT_LINE
 # define FD_SIZE 8192
-# define BUFF_SIZE 4
+# define BUFF_SIZE 8
 
 # include <stdlib.h>
-# include <stdio.h>
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/uio.h>

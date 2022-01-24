@@ -11,26 +11,23 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
-static int	join_line(char **line, char **str)
+static int	line_return(int ret, char **str, char **line)
 {
-	size_t	length;
+	size_t	nl_position;
 	char	*temp;
 
-	length = 0;
-	while ((*str)[length] != '\n' && (*str)[length] != '\0')
-		length++;
-	if ((*str)[length] == '\n')
+	if ((ret == 0 && *str == NULL) || ret < 0)
+		return (0);
+	nl_position = (size_t)(ft_strchr(*str, '\n') - *str);
+	if (ft_strchr(*str, '\n'))
 	{
-		*line = ft_strsub(*str, 0, length);
-		temp = ft_strdup(&((*str)[length + 1]));
+		*line = ft_strsub(*str, 0, nl_position + 1);
+		temp = ft_strdup(&((*str)[nl_position + 1]));
 		free(*str);
 		*str = temp;
 		if ((*str)[0] == '\0')
-		{
 			ft_strdel(str);
-		}
 	}
 	else
 	{
@@ -40,42 +37,42 @@ static int	join_line(char **line, char **str)
 	return (1);
 }
 
-static int	check_ret_value(int fd, char **line, int ret, char **str)
+static int	buff_handler(int fd, char **str, char **buff)
 {
-	if (ret < 0)
-		return (-1);
-	else if (ret == 0 && str[fd] == NULL)
+	int		ret;
+	char	*temp;
+
+	ret = read(fd, *buff, BUFF_SIZE);
+	while (ret > 0)
 	{
-		return (0);
+		(*buff)[ret] = '\0';
+		if (*str == NULL)
+			*str = ft_strdup(*buff);
+		else
+		{
+			temp = ft_strjoin(*str, *buff);
+			free(*str);
+			*str = temp;
+		}
+		if (ft_strchr(*str, '\n'))
+			break;
+		ret = read(fd, *buff, BUFF_SIZE);
 	}
-	else
-		return (join_line(line, &str[fd]));
+	free(*buff);
+	return (ret);
 }
 
 int	get_next_line(const int fd, char **line)
 {
-	static char		*str[FD_SIZE];
-	char			*temp;
-	char			buffer[BUFF_SIZE + 1];
+	static char		*string[FD_SIZE];
+	char			*buff;
 	int				ret;
-	
-	if (fd < 0 || line == NULL)
+
+	buff = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
+	if (buff == NULL)
+		return (0);
+	if (fd < 0 || line == NULL || BUFF_SIZE <= 0 || fd > FD_SIZE)
 		return (-1);
-	ret = read(fd, buffer, BUFF_SIZE);
-	while (ret > 0)
-	{
-		buffer[ret] = '\0';
-		if (str[fd] == NULL)
-			str[fd] = ft_strdup(buffer);
-		else
-		{
-			temp = ft_strjoin(str[fd], buffer);
-			free(str[fd]);
-			str[fd] = temp;
-		}
-		if (ft_strchr(str[fd], '\n'))
-			break ;
-		ret = read(fd, &buffer, BUFF_SIZE);
-	}
-	return (check_ret_value(fd, line, ret, str));
+	ret = buff_handler(fd, &string[fd], &buff);
+	return (line_return(ret, &string[fd], line));
 }
