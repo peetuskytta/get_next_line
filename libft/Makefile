@@ -83,7 +83,7 @@ $(NAME): $(OBJ)
 	@echo "$(NAME) indexed"
 
 %.o: %.c
-	@gcc $(FLAG) -c $< -o $@
+	@gcc $(FLAG) -I libft/includes -c $< -o $@
 
 clean:
 	@rm -f $(OBJ)

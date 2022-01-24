@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 static int	line_return(int ret, char **str, char **line)
 {
@@ -27,12 +28,12 @@ static int	line_return(int ret, char **str, char **line)
 		free(*str);
 		*str = temp;
 		if ((*str)[0] == '\0')
-			ft_strdel(str);
+			ft_strclr(*str);
 	}
 	else
 	{
 		*line = ft_strdup(*str);
-		ft_strdel(str);
+		ft_strclr(*str);
 	}
 	return (1);
 }
