@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 15:09:14 by pskytta           #+#    #+#             */
-/*   Updated: 2021/12/16 16:33:25 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/01/25 17:30:19 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 char	*ft_strdup(const char *s1)
 {
 	char	*dup;
-	size_t	length;
 
-	length = ft_strlen(s1);
-	dup = (char *)malloc(length + 1);
-	ft_memset(dup, '\0', length);
+	dup = (char *)malloc(ft_strlen(s1) + 1);
 	if (dup == NULL)
 		return ((char *) NULL);
 	ft_strcpy(dup, s1);

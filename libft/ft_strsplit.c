@@ -6,11 +6,12 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 13:23:08 by pskytta           #+#    #+#             */
-/*   Updated: 2022/01/03 15:10:19 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/01/04 17:18:04 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 static size_t	ft_word_size(char const *str, size_t i, char c)
 {

@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 13:09:39 by pskytta           #+#    #+#             */
-/*   Updated: 2021/12/19 13:18:56 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/01/25 18:14:43 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 #define OFF 0
 #define ON 1
-
-/*
-* ft_word_count counts the number of words in a string and returns that number.
-* This additional function was used in ft_strsplit.
-*/
 
 size_t	ft_word_count(char const *str, char c)
 {

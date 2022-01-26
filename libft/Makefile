@@ -6,7 +6,7 @@
 #    By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/22 13:05:41 by pskytta           #+#    #+#              #
-#    Updated: 2022/01/03 14:58:02 by pskytta          ###   ########.fr        #
+#    Updated: 2022/01/10 15:17:27 by pskytta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ $(NAME): $(OBJ)
 	@echo "$(NAME) indexed"
 
 %.o: %.c
-	@gcc $(FLAG) -I libft/includes -c $< -o $@
+	@gcc $(FLAG) -c $< -o $@ -I includes/
 
 clean:
 	@rm -f $(OBJ)
