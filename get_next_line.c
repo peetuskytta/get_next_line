@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:28 by pskytta           #+#    #+#             */
-/*   Updated: 2022/01/25 18:39:15 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/01/26 12:10:13 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	line_return(int ret, char **str, char **line)
 	if (ret == 0 && *str == NULL)
 		return (0);
 	nl_position = (size_t)(ft_strchr(*str, '\n') - *str);
-	if (ft_strchr(*str, '\n'))
+	if ((*str)[nl_position + 1] == '\n')
 	{
 		*line = ft_strsub(*str, 0, nl_position);
 		temp = ft_strdup(&((*str)[nl_position + 1]));
