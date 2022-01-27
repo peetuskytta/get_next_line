@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:28 by pskytta           #+#    #+#             */
-/*   Updated: 2022/01/26 12:10:13 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/01/10 14:24:59 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ static int	line_return(int ret, char **str, char **line)
 	size_t	nl_position;
 	char	*temp;
 
-	if (ret == 0 && *str == NULL)
+	if ((ret == 0 && *str == NULL) || ret < 0)
 		return (0);
 	nl_position = (size_t)(ft_strchr(*str, '\n') - *str);
-	if ((*str)[nl_position + 1] == '\n')
+	if ((*str)[nl_position] == '\n')
 	{
 		*line = ft_strsub(*str, 0, nl_position);
 		temp = ft_strdup(&((*str)[nl_position + 1]));
-		ft_strdel(str);
+		free(*str);
 		*str = temp;
 		if ((*str)[0] == '\0')
 			ft_strdel(str);
@@ -43,8 +43,6 @@ static int	buff_handler(int fd, char **str, char **buff)
 	char	*temp;
 
 	ret = read(fd, *buff, BUFF_SIZE);
-	if (ret < 0)
-		return (-1);
 	while (ret > 0)
 	{
 		(*buff)[ret] = '\0';
@@ -53,14 +51,14 @@ static int	buff_handler(int fd, char **str, char **buff)
 		else
 		{
 			temp = ft_strjoin(*str, *buff);
-			ft_strdel(str);
+			free(*str);
 			*str = temp;
 		}
 		if (ft_strchr(*str, '\n'))
-			break ;
+			break;
 		ret = read(fd, *buff, BUFF_SIZE);
 	}
-	ft_strdel(buff);
+	free(*buff);
 	return (ret);
 }
 
@@ -68,15 +66,18 @@ int	get_next_line(const int fd, char **line)
 {
 	static char		*string[FD_SIZE];
 	char			*buff;
-	int				ret;
+	int			ret;
 
 	buff = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
 	if (buff == NULL)
-		return (0);
-	if (fd < 0 || line == NULL || BUFF_SIZE < 0 || fd > FD_SIZE)
 		return (-1);
+	if (fd < 0 || line == NULL || BUFF_SIZE <= 0 || fd > FD_SIZE)
+		return (-1);
+	if (string[fd])
+		if (ft_strchr(string[fd], '\n'))
+			return (line_return(1, &string[fd], line));
 	ret = buff_handler(fd, &string[fd], &buff);
-	if (ret < 0)
+	if (ret == -1)
 		return (-1);
 	return (line_return(ret, &string[fd], line));
 }
