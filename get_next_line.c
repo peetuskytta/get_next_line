@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:28 by pskytta           #+#    #+#             */
-/*   Updated: 2022/01/10 14:24:59 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/01/31 16:07:55 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	line_return(int ret, char **str, char **line)
 	if ((ret == 0 && *str == NULL) || ret < 0)
 		return (0);
 	nl_position = (size_t)(ft_strchr(*str, '\n') - *str);
-	if ((*str)[nl_position] == '\n')
+	if ((ft_strchr(*str, '\n')))
 	{
 		*line = ft_strsub(*str, 0, nl_position);
 		temp = ft_strdup(&((*str)[nl_position + 1]));
@@ -55,7 +55,7 @@ static int	buff_handler(int fd, char **str, char **buff)
 			*str = temp;
 		}
 		if (ft_strchr(*str, '\n'))
-			break;
+			break ;
 		ret = read(fd, *buff, BUFF_SIZE);
 	}
 	free(*buff);
@@ -66,16 +66,17 @@ int	get_next_line(const int fd, char **line)
 {
 	static char		*string[FD_SIZE];
 	char			*buff;
-	int			ret;
+	int				ret;
 
-	buff = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
-	if (buff == NULL)
-		return (-1);
+	ret = 0;
 	if (fd < 0 || line == NULL || BUFF_SIZE <= 0 || fd > FD_SIZE)
 		return (-1);
 	if (string[fd])
 		if (ft_strchr(string[fd], '\n'))
-			return (line_return(1, &string[fd], line));
+			return (line_return(ret, &string[fd], line));
+	buff = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
+	if (buff == NULL)
+		return (-1);
 	ret = buff_handler(fd, &string[fd], &buff);
 	if (ret == -1)
 		return (-1);
