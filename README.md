@@ -13,6 +13,6 @@ The function is called as many times as needed. So, how hard can it be to read a
 
 ## Status
 
-- ✅ Successfully completed on **02/03/2022**
+- ✅ Successfully completed on **03/02/2022**
 - ✅ Scroce: **121/124**
 - ✅ Retries:  **1** after 3 peer evaluations. Mistake in header file, ``BUFF_SIZE`` definition had one extra space after the integer.
